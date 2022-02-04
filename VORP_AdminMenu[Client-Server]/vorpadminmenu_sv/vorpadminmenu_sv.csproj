@@ -72,7 +72,9 @@
     <None Include="En.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="Ru.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Scripts\" />
     <Folder Include="Extensions\" />
   </ItemGroup>

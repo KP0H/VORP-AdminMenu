@@ -1,0 +1,162 @@
+﻿{
+  //Shared
+  "ID": "player id",
+
+
+
+  //Texts
+
+  "MenuMainTitle": "VORP AdminMenu",
+  "MenuMainDesc": "AdminMenu",
+
+
+
+  "MenuAdministrationTitle": "Администратор",
+  "MenuAdministrationDesc": "Меню Админа",
+
+
+  "KickPlayerTitle": "Выгнать игрока",
+  "KickPlayerDesc": "Нажмите здесь, чтобы выгнать игрока с сервера или: Команда:/k id.",
+
+  "BanPlayerTitle": "Забанить игрока",
+  "BanPlayerDesc": "Нажмите здесь, чтобы забанить игрока на сервере или: Команда:/ban 1 1H причина.",
+  "BanPlayerTime": " Пример:/ban 1 1H причина",
+  "BanPlayerReason": "Причина",
+  "YouArePermanentBanned": "У вас постоянный бан.",
+  "YouAreTempBanned": "Срок действия вашего бана истекает через {0} дн. {1} ч. {2} мин.",
+  "YouHasBeenBanned": "Вас забанили за ({0}) | Срок: ({1})",
+  "Permament": "Навсегда",
+  "SyntaxIncorrect": "Пожалуйста, используйте правильный синтаксис [ 0 = Постоянный, 10Y = 10 Лет, 10M = 10 Месяцев, 10D = 10 Дней, 10H = 10 Часов, 10m = 10 Минут ]",
+
+  "ReviveTitle": "Оживить игрока",
+  "ReviveDesc": "Оживить игрока",
+
+  "HealTitle": "Исцелить игрока",
+  "HealDesc": "Исцелить игрока",
+
+  "FreezeTitle": "Заморозить",
+  "FreezeDesc": "Заморозить игрока",
+
+  "SlapTitle": "Шлепнуть",
+  "SlapDesc": "Шлепнуть игрока",
+
+  "LightningTitle": "Молния",
+  "LightningDesc": "Ударить молнией",
+
+  "FireTitle": "Поджог",
+  "FireDesc": "Сжечь игрока до смерти",
+
+  "SpectateTitle": "Наблюдать",
+  "SpectateDesc": "Наблюдать за игроком",
+
+  "SpectateTitleOff": "Перестать наблюдать",
+  "SpectateDescOff": "Остановить наблюдение",
+
+  "PlayersBlipsTitle": "Игроки на карте",
+  "PlayersBlipsDesc": "Посмотреть всех игроков на карте",
+
+  "PlayersListTitle": "Игроки",
+  "PlayersListDesc": "Список игроков",
+
+  "MenuNotificationsTitle": "Уведомления",
+  "MenuNotificationsDesc": "Меню уведомлений",
+
+  "MenuBoostersTitle": "Читы",
+  "MenuBoostersDesc": "Меню читов",
+
+  "GodModeTitle": "Бессмертие",
+  "GodModeDesc": "Режим бога",
+
+  "ThorTitle": "Тор",
+  "ThorDesc": "Тор",
+
+  "NoClipTitle": "Noclip",
+  "NoClipDesc": "Noclip",
+
+  "NoClip2Title": "Noclip V2",
+  "NoClip2Desc": "Улучшенный noclip",
+
+  "GoldenTitle": "Золотые статы",
+  "GoldenDesc": "Режим золотых статов (не обнуляется)",
+
+  "HorseTitle": "Лошадь",
+  "HorseDesc": "Создать лошадь",
+  "VehicleTitle": "Транспорт",
+  "VehicleDesc": "Создать транспорт",
+
+  "InfiniteAmmoOnTitle": "Бесконечные патроны вкл",
+  "InfiniteAmmoOnDesc": "Включить",
+  "InfiniteAmmoOffTitle": "Бесконечные патроны выкл",
+  "InfiniteAmmoOffDesc": "Выключить",
+
+  "Quantity": "количество",
+
+  "MenuDatabaseTitle": "База данных",
+  "MenuDatabaseDesc": "Меню базы данных",
+
+  "AddMoneyTitle": "Добавить деньги",
+  "AddMoneyDesc": "Добавить деньги",
+
+  "TypeOfMoneyTitle": "Тип:0-доллары,1-золото",
+  "TypeOfMoneyDesc": "Тип",
+
+  "DelMoneyTitle": "Забрать деньги",
+  "DelMoneyDesc": "Забрать деньги",
+
+  "AddXpTitle": "Добавить опыт",
+  "AddXpDesc": "Добавить опыт",
+
+  "DelXpTitle": "Забрать опыт",
+  "DelXpDesc": "Забрать опыт",
+
+  "AddItemTitle": "Добавить предмет",
+  "AddItemDesc": "Добавить предмет",
+
+  "ItemName": "Название предмета",
+
+  "AddWeaponTitle": "Добавить оружие",
+  "AddWeaponDesc": "Добавить оружие",
+
+  "WeaponName": "Хэш оружия",
+  "Weaponammo": "Хэш боеприпасов",
+
+  "InventoryTitle": "Инвентарь",
+  "InventoryListTitle": "Инвентарь",
+  "InventoryListDesc": "Инвентарь",
+
+  "LoadingTitle": "Загрузка",
+  "LoadingDesc": "Загрузка",
+
+  "NeedWeaponOnHand": "Вы должны держать в руках оружие",
+
+
+
+  "PrivateMessageTitle": "Личное сообщение игроку",
+  "PrivateMessageDesc": "Нажмите здесь, чтобы отправить личное сообщение",
+  "PMDesc": "сообщение",
+  "BroadcastMessageTitle": "Серверное сообщение",
+  "BroadcastMessageDesc": "Нажмите здесь, чтобы отправить серверное сообщение",
+  "BMDesc": "сообщение",
+
+  "MenuTeleportsTitle": "Телепорты",
+  "MenuTeleportsDesc": "Меню телепортов",
+
+  "TpToCursorTitle": "Тп на курсор",
+  "TpToCursorDesc": "Телепорт на курсору.",
+  "TpToWaypointTitle": "Телепорт на метку",
+  "TpToWaypointDesc": "Телепорт на метку.\nСначала добавьте метку на карту",
+  "TpToCoordsTitle": "Tп по координатам",
+  "TpToCoordsDesc": "Телепорт по координатам.",
+  "XCoord": "X Коорд",
+  "YCoord": "Y Коорд",
+  "TpToPlayerTitle": "Тп к игроку",
+  "TpToPlayerDesc": "Телепорт к игроку.",
+  "BringPlayerTitle": "Привести игрока",
+  "BringPlayerDesc": "Привести игрока.",
+  "TpBackTitle": "Вернуться к первому тп",
+  "TpBackDesc": "Телепортируйтесь обратно в первую точку и удалите точку на карте.",
+  "DelBackTitle": "Удалить координаты первой точки",
+  "DelBackDesc": "Удалить отметку и положение первой позиции тп.",
+  "GuarmaTitle": "Гуарма",
+  "GuarmaDesc": "Телепорт на карту Гуармы. Используйте снова, чтобы вернуться в нормальную карту"
+}
