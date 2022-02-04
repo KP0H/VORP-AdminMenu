@@ -1,6 +1,7 @@
 ﻿using CitizenFX.Core;
 using System;
 using System.Collections.Generic;
+using vorpadminmenu_sv.Extensions;
 
 namespace vorpadminmenu_sv
 {
@@ -28,7 +29,7 @@ namespace vorpadminmenu_sv
             bool idC = int.TryParse(args[0].ToString(), out int id);
             bool typeC = int.TryParse(args[1].ToString(), out int type);
 
-            dynamic UserCharacter = LoadConfig.VORPCORE.getUser(id).getUsedCharacter;
+            dynamic UserCharacter = Common.GetCoreUserCharacter(id);
 
             if (idC && typeC)
             {
@@ -77,7 +78,7 @@ namespace vorpadminmenu_sv
             bool idC = int.TryParse(args[0].ToString(), out int id);
             bool typeC = int.TryParse(args[1].ToString(), out int type);
 
-            dynamic UserCharacter = LoadConfig.VORPCORE.getUser(id).getUsedCharacter;
+            dynamic UserCharacter = Common.GetCoreUserCharacter(id);
 
             if (idC && typeC)
             {
@@ -125,7 +126,7 @@ namespace vorpadminmenu_sv
         {
             bool idC = int.TryParse(args[0].ToString(), out int id);
             bool quantityC = int.TryParse(args[1].ToString(), out int quantity);
-            dynamic UserCharacter = LoadConfig.VORPCORE.getUser(id).getUsedCharacter;
+            dynamic UserCharacter = Common.GetCoreUserCharacter(id);
             if (idC && quantityC)
             {
                 UserCharacter.addXp(quantity);
@@ -140,7 +141,7 @@ namespace vorpadminmenu_sv
         {
             bool idC = int.TryParse(args[0].ToString(), out int id);
             bool quantityC = int.TryParse(args[1].ToString(), out int quantity);
-            dynamic UserCharacter = LoadConfig.VORPCORE.getUser(id).getUsedCharacter;
+            dynamic UserCharacter = Common.GetCoreUserCharacter(id);
             if (idC && quantityC)
             {
                 UserCharacter.removeXp(quantity);
