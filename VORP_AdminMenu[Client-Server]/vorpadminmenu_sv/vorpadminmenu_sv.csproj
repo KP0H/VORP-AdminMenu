@@ -63,6 +63,7 @@
     <Compile Include="Utils\WeaponList.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="Scripts\Config.cs" />
+    <Compile Include="Extensions\Common.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json">
@@ -73,6 +74,7 @@
     </None>
     <None Include="packages.config" />
     <Folder Include="Scripts\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
