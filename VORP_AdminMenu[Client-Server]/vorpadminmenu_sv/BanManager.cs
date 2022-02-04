@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using vorpadminmenu_sv.Diagnostics;
+using vorpadminmenu_sv.Scripts;
 
 namespace vorpadminmenu_sv
 {
@@ -61,8 +62,8 @@ namespace vorpadminmenu_sv
 
                 if (userBan.Permanent)
                 {
-                    deferrals.done(LoadConfig.Langs["YouArePermanentBanned"]);
-                    setKickReason(LoadConfig.Langs["YouArePermanentBanned"]);
+                    deferrals.done(Config.Langs["YouArePermanentBanned"]);
+                    setKickReason(Config.Langs["YouArePermanentBanned"]);
                     return;
                 }
 
@@ -74,8 +75,8 @@ namespace vorpadminmenu_sv
                     return;
                 }
 
-                deferrals.done(string.Format(LoadConfig.Langs["YouAreTempBanned"], diff.Days.ToString(), diff.Hours.ToString(), diff.Minutes.ToString()));
-                setKickReason(string.Format(LoadConfig.Langs["YouAreTempBanned"], diff.Days.ToString(), diff.Hours.ToString(), diff.Minutes.ToString()));
+                deferrals.done(string.Format(Config.Langs["YouAreTempBanned"], diff.Days.ToString(), diff.Hours.ToString(), diff.Minutes.ToString()));
+                setKickReason(string.Format(Config.Langs["YouAreTempBanned"], diff.Days.ToString(), diff.Hours.ToString(), diff.Minutes.ToString()));
             }
             catch (Exception ex)
             {
@@ -146,14 +147,14 @@ namespace vorpadminmenu_sv
                         }
                         else
                         {
-                            player.TriggerEvent("vorp:Tip", LoadConfig.Langs["SyntaxIncorrect"], 5000);
+                            player.TriggerEvent("vorp:Tip", Config.Langs["SyntaxIncorrect"], 5000);
                             return;
                         }
                     }
                 }
                 catch
                 {
-                    player.TriggerEvent("vorp:Tip", LoadConfig.Langs["SyntaxIncorrect"], 5000);
+                    player.TriggerEvent("vorp:Tip", Config.Langs["SyntaxIncorrect"], 5000);
                     return;
                 }
                 await Delay(2000);
@@ -164,13 +165,13 @@ namespace vorpadminmenu_sv
                     string duration = "";
                     if (permanent == 1)
                     {
-                        duration = LoadConfig.Langs["Permament"];
+                        duration = Config.Langs["Permament"];
                     }
                     else
                     {
                         duration = unban.ToString();
                     }
-                    target.Drop(string.Format(LoadConfig.Langs["YouHasBeenBanned"], reason, duration));
+                    target.Drop(string.Format(Config.Langs["YouHasBeenBanned"], reason, duration));
                 }));
             }
             catch (Exception ex)
