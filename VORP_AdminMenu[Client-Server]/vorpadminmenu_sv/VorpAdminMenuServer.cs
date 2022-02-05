@@ -22,9 +22,10 @@ namespace vorpadminmenu_sv
 
         private void AddEvents()
         {
+
             EventRegistry.Add("vorp_admin:InitAdminMenu", InitAdminMenu);
 
-            EventRegistry.Add("vorp_adminmenu:getPlayers", GetPlayers);
+            //EventRegistry.Add("vorp_adminmenu:getPlayers", new Action<NetworkCallbackDelegate>(GetPlayers));
 
             #region client-server events
             EventRegistry.Add("vorp:ownerCoordsToBring", CoordsToBringPlayer);
@@ -72,20 +73,22 @@ namespace vorpadminmenu_sv
             source.TriggerEvent("vorp_adminmenu:InitAdminMenuClient", UserCharacter.group == "admin");
         }
 
-        public void GetPlayers([FromSource] Player source, NetworkCallbackDelegate callback)
+        [EventHandler("vorp_adminmenu:RequestPlayers")]
+        private void GetPlayers([FromSource] Player source)
         {
-            Dictionary<int, string> result = new Dictionary<int, string>();
+            Dictionary<int, string> result = new();
             foreach (var player in PluginManager.PlayerList)
             {
-                var character = source.GetCoreUserCharacter();
+                var character = player.GetCoreUserCharacter();
                 if (character == null)
                 {
                     continue;
                 }
 
-                result.Add(int.Parse(source.Handle), $"{character.firstname} {character.lastname}");
+                result.Add(int.Parse(player.Handle), $"{character.firstname} {character.lastname}");
+                Logger.Info($"{character.firstname} {character.lastname}, {int.Parse(player.Handle)}");
             }
-            callback.Invoke(result);
+            source.TriggerLatentEvent("vorp_adminmenu:RecivePlayers", 1000, result);
         }
 
         #region client-server events

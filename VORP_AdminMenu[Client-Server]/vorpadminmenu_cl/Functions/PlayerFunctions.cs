@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Dynamic;
 using CitizenFX.Core;
 
 namespace vorpadminmenu_cl.Functions
 {
-	public class PlayerFunctions : BaseScript
-	{
-		public static async Task<Dictionary<int, string>> GetPlayers()
+    public class PlayerFunctions : BaseScript
+    {
+        public static Dictionary<int, string> PlayersList = new Dictionary<int, string>();
+
+        public static void RequestPlayers()
         {
             try
-			{
-				Dictionary<int, string> result = new Dictionary<int, string>();
-
-				TriggerServerEvent("vorp_adminmenu:getPlayers", new Action<Dictionary<int, string>>(players => {
-					result = players;
-				}));
-
-				return result;
-			}
-			catch (Exception ex)
             {
-				Debug.WriteLine($"GetPlayers: {ex.Message}");
+                Debug.WriteLine("Request players");
+                TriggerServerEvent("vorp_adminmenu:RequestPlayers");
             }
-			return null;
-		}
-	}
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"GetPlayers: {ex.Message}");
+            }
+        }
+
+        [EventHandler("vorp_adminmenu:RecivePlayers")]
+        public static void RecivePlayers(ExpandoObject data)
+        {
+            foreach (var p in data)
+            {
+                PlayersList.Add(Convert.ToInt32(p.Key), p.Value.ToString());
+            }
+
+            foreach (var player in PlayersList)
+            {
+                Debug.WriteLine($"{player.Key}.{player.Value}");
+            }
+        }
+    }
 }
 

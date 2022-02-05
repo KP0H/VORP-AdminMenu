@@ -16,7 +16,7 @@ namespace vorpadminmenu_sv.Extensions
                 return null;
             }
 
-            return GetCoreUser(int.Parse(player.Handle));        
+            return GetCoreUser(int.Parse(player.Handle));
         }
 
         public static dynamic GetCoreUser(int handle)
@@ -27,7 +27,14 @@ namespace vorpadminmenu_sv.Extensions
                 return null;
             }
 
-            return PluginManager.CORE.getUser(handle);
+            ExpandoObject user = PluginManager.CORE.getUser(handle);
+
+            foreach (var item in user)
+            {
+                Debug.WriteLine($"{item.Key} {item.Value}");
+            }
+
+            return user;
         }
 
         public static dynamic GetCoreUserCharacter(this Player player)

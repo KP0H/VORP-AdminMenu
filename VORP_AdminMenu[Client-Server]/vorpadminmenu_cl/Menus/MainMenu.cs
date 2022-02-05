@@ -2,6 +2,7 @@
 using MenuAPI;
 using System;
 using System.Collections.Generic;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
@@ -77,6 +78,14 @@ namespace vorpadminmenu_cl.Menus
             mainMenu.AddMenuItem(subMenuDatabaseBtn);
             MenuController.BindMenuItem(mainMenu, DatabaseMenu.GetMenu(), subMenuDatabaseBtn);
 
+            mainMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == subMenuAdministrationBtn)
+                {
+                    PlayerFunctions.RequestPlayers();
+                    mainMenu.RefreshIndex();
+                }
+            };
         }
         public static Menu GetMenu()
         {

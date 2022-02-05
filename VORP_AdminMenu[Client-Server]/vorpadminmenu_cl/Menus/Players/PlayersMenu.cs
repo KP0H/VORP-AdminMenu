@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CitizenFX.Core.Native;
 using MenuAPI;
 using vorpadminmenu_cl.Functions;
 
@@ -25,9 +24,7 @@ namespace vorpadminmenu_cl.Menus.Players
                 playersListMenu.ClearMenuItems();
                 idPlayers.Clear();
 
-                var playersDictionary = PlayerFunctions.GetPlayers().Result;
-
-                foreach (KeyValuePair<int, string> player in playersDictionary)
+                foreach (KeyValuePair<int, string> player in PlayerFunctions.PlayersList)
                 {
                     idPlayers.Add(player);
 
