@@ -1,10 +1,9 @@
-﻿using CitizenFX.Core;
-using CitizenFX.Core.Native;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using vorpadminmenu_cl.Functions.Teleports;
+using CitizenFX.Core;
+using CitizenFX.Core.Native;
 
-namespace vorpadminmenu_cl.Functions.Utils
+namespace vorpadminmenu_cl.Functions
 {
     class UtilsFunctions : BaseScript
     {

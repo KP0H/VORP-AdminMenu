@@ -1,13 +1,12 @@
-﻿using CitizenFX.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CitizenFX.Core.Native;
 using MenuAPI;
-using System.Collections.Generic;
-using System.Linq;
-using vorpadminmenu_cl.Functions.Database;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus.Players.Inventory
 {
-    class Inventory
+    class InventoryMenu
     {
         private static Menu inventory = new Menu(GetConfig.Langs["InventoryListTitle"], GetConfig.Langs["InventoryListDesc"]);
         private static int indexItem;
@@ -22,7 +21,7 @@ namespace vorpadminmenu_cl.Menus.Players.Inventory
             inventory.OnMenuOpen += (_menu) =>
             {
                 inventory.ClearMenuItems();
-                int idPlayerInventory = API.GetPlayerServerId(PlayersDatabase.idPlayers.ElementAt(PlayersDatabase.indexPlayer));
+                int idPlayerInventory = API.GetPlayerServerId(PlayersDatabaseMenu.idPlayers.ElementAt(PlayersDatabaseMenu.indexPlayer));
                 MainMenu.args.Add(idPlayerInventory);
                 DatabaseFunctions.GetInventoryItems(MainMenu.args);
                 MainMenu.args.Clear();
@@ -36,7 +35,7 @@ namespace vorpadminmenu_cl.Menus.Players.Inventory
             {
                 if (itemInventoryList[_itemIndex].count < _listIndex)
                 {
-                    int idPlayerInventory = API.GetPlayerServerId(PlayersDatabase.idPlayers.ElementAt(PlayersDatabase.indexPlayer));
+                    int idPlayerInventory = API.GetPlayerServerId(PlayersDatabaseMenu.idPlayers.ElementAt(PlayersDatabaseMenu.indexPlayer));
                     MainMenu.args.Add(idPlayerInventory);
                     string item = itemInventoryList[_itemIndex].name;
                     MainMenu.args.Add(item);
@@ -47,7 +46,7 @@ namespace vorpadminmenu_cl.Menus.Players.Inventory
                 }
                 else
                 {
-                    int idPlayerInventory = API.GetPlayerServerId(PlayersDatabase.idPlayers.ElementAt(PlayersDatabase.indexPlayer));
+                    int idPlayerInventory = API.GetPlayerServerId(PlayersDatabaseMenu.idPlayers.ElementAt(PlayersDatabaseMenu.indexPlayer));
                     MainMenu.args.Add(idPlayerInventory);
                     string item = itemInventoryList[_itemIndex].name;
                     MainMenu.args.Add(item);

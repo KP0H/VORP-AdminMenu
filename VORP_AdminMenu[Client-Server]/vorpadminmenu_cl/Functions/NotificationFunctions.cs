@@ -3,7 +3,7 @@ using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
 
-namespace vorpadminmenu_cl.Functions.Notifications
+namespace vorpadminmenu_cl.Functions
 {
     class NotificationFunctions : BaseScript
     {

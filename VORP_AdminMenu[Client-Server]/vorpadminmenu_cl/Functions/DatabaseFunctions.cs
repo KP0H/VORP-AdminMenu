@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using vorpadminmenu_cl.Functions.Utils;
 using vorpadminmenu_cl.Menus.Players.Inventory;
 
-namespace vorpadminmenu_cl.Functions.Database
+namespace vorpadminmenu_cl.Functions
 {
     class DatabaseFunctions : BaseScript
     {
@@ -14,43 +14,39 @@ namespace vorpadminmenu_cl.Functions.Database
             EventHandlers["vorp:loadPlayerInventory"] += new Action<dynamic>(LoadPlayerInventory);
         }
 
-
-
         public static void SetupDatabase()
         {
-            if (GetUserInfo.userGroup.Contains("admin"))
+
+            API.RegisterCommand(GetConfig.Config["AddMoney"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
             {
-                API.RegisterCommand(GetConfig.Config["AddMoney"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    AddMoney(args);
-                }), false);
-                API.RegisterCommand(GetConfig.Config["DelMoney"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    RemoveMoney(args);
-                }), false);
-                API.RegisterCommand(GetConfig.Config["AddXp"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    AddXp(args);
-                }), false);
-                API.RegisterCommand(GetConfig.Config["DelXp"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    RemoveXp(args);
-                }), false);
-                API.RegisterCommand(GetConfig.Config["AddItem"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    AddItem(args);
-                }), false);
+                AddMoney(args);
+            }), false);
+            API.RegisterCommand(GetConfig.Config["DelMoney"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                RemoveMoney(args);
+            }), false);
+            API.RegisterCommand(GetConfig.Config["AddXp"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                AddXp(args);
+            }), false);
+            API.RegisterCommand(GetConfig.Config["DelXp"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                RemoveXp(args);
+            }), false);
+            API.RegisterCommand(GetConfig.Config["AddItem"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                AddItem(args);
+            }), false);
 
-                API.RegisterCommand(GetConfig.Config["AddWeapon"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    AddWeapon(args);
-                }), false);
+            API.RegisterCommand(GetConfig.Config["AddWeapon"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                AddWeapon(args);
+            }), false);
 
-                API.RegisterCommand(GetConfig.Config["AddAmmo"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
-                {
-                    AddAmmo(args);
-                }), false);
-            }
+            API.RegisterCommand(GetConfig.Config["AddAmmo"].ToString(), new Action<int, List<object>, string, string>((source, args, cl, raw) =>
+            {
+                AddAmmo(args);
+            }), false);
         }
 
         public static void AddMoney(List<object> args)
@@ -127,7 +123,7 @@ namespace vorpadminmenu_cl.Functions.Database
 
         private void LoadPlayerInventory(dynamic items)
         {
-            Inventory.LoadItems(items);
+            InventoryMenu.LoadItems(items);
         }
 
 

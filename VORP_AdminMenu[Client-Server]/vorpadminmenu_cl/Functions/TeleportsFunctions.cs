@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using vorpadminmenu_cl.Functions.Utils;
 
-namespace vorpadminmenu_cl.Functions.Teleports
+namespace vorpadminmenu_cl.Functions
 {
     class TeleportsFunctions : BaseScript
     {
@@ -188,47 +188,51 @@ namespace vorpadminmenu_cl.Functions.Teleports
         [Tick]
         public async Task OnTpView()
         {
-            if (GetUserInfo.loaded)
+            if (!VorpAdminMenuClient.loaded)
             {
-                int entity = 0;
-                bool hit = false;
-                Vector3 endCoord = new Vector3();
-                Vector3 surfaceNormal = new Vector3();
-                Vector3 camCoords = API.GetGameplayCamCoord();
-                Vector3 sourceCoords = UtilsFunctions.GetCoordsFromCam(100000.0F);
-                int rayHandle = API.StartShapeTestRay(camCoords.X, camCoords.Y, camCoords.Z, sourceCoords.X, sourceCoords.Y, sourceCoords.Z, -1, API.PlayerPedId(), 0);
-                API.GetShapeTestResult(rayHandle, ref hit, ref endCoord, ref surfaceNormal, ref entity);
+                return;
+            }
 
-                if (Menus.Teleports.GetTpView())
+            int entity = 0;
+            bool hit = false;
+            Vector3 endCoord = new Vector3();
+            Vector3 surfaceNormal = new Vector3();
+            Vector3 camCoords = API.GetGameplayCamCoord();
+            Vector3 sourceCoords = UtilsFunctions.GetCoordsFromCam(100000.0F);
+            int rayHandle = API.StartShapeTestRay(camCoords.X, camCoords.Y, camCoords.Z, sourceCoords.X, sourceCoords.Y, sourceCoords.Z, -1, API.PlayerPedId(), 0);
+            API.GetShapeTestResult(rayHandle, ref hit, ref endCoord, ref surfaceNormal, ref entity);
+
+            if (Menus.TeleportsMenu.GetTpView())
+            {
+                Function.Call((Hash)0x2A32FAA57B937173, -1795314153, endCoord.X, endCoord.Y, endCoord.Z, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 50.0F, 0, 255, 0, 155, false, false, 2, false, 0, 0, false);
+            }
+
+            string keyPress = GetConfig.Config["TpviewDelviewKey"].ToString();
+            int KeyInt = Convert.ToInt32(keyPress, 16);
+
+            if (API.IsControlJustPressed(0, (uint)KeyInt) && Menus.TeleportsMenu.GetTpView() && endCoord.X != 0.0)
+            {
+                Vector3 waypointCoords = API.GetWaypointCoords();
+                if (UtilsFunctions.blip == -1)
                 {
-                    Function.Call((Hash)0x2A32FAA57B937173, -1795314153, endCoord.X, endCoord.Y, endCoord.Z, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 50.0F, 0, 255, 0, 155, false, false, 2, false, 0, 0, false);
+                    lastTpCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);
+                    UtilsFunctions.CreateBlip();
                 }
-                string keyPress = GetConfig.Config["TpviewDelviewKey"].ToString();
-                int KeyInt = Convert.ToInt32(keyPress, 16);
-                if (API.IsControlJustPressed(0, (uint)KeyInt) && Menus.Teleports.GetTpView() && endCoord.X != 0.0)
-                {
-                    Vector3 waypointCoords = API.GetWaypointCoords();
-                    if (UtilsFunctions.blip == -1)
-                    {
-                        lastTpCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);
-                        UtilsFunctions.CreateBlip();
-                    }
-                    UtilsFunctions.TeleportToCoords(endCoord.X, endCoord.Y, endCoord.Z);
-                }
-            };
+                UtilsFunctions.TeleportToCoords(endCoord.X, endCoord.Y, endCoord.Z);
+            }
         }
 
         public static void TpView(List<object> args)
         {
-            if (Menus.Teleports.GetTpView())
+            if (Menus.TeleportsMenu.GetTpView())
             {
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), false);
-                Menus.Teleports.SetTpView(false);
+                Menus.TeleportsMenu.SetTpView(false);
             }
             else
             {
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), true);
-                Menus.Teleports.SetTpView(true);
+                Menus.TeleportsMenu.SetTpView(true);
             }
         }
     }

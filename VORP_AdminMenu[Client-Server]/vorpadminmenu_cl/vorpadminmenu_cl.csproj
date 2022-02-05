@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -55,29 +55,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\Administration\AdministrationFunctions.cs" />
-    <Compile Include="Functions\Boosters\BoosterFunctions.cs" />
-    <Compile Include="Functions\Database\DatabaseFunctions.cs" />
-    <Compile Include="Functions\Notifications\NotificationFunctions.cs" />
-    <Compile Include="Functions\Teleports\TeleportsFunctions.cs" />
-    <Compile Include="Functions\Utils\AmmoList.cs" />
-    <Compile Include="Functions\Utils\UtilsFunctions.cs" />
-    <Compile Include="Functions\Utils\WeaponsList.cs" />
     <Compile Include="GetConfig.cs" />
-    <Compile Include="GetUserInfo.cs" />
-    <Compile Include="Menus\Administration.cs" />
-    <Compile Include="Menus\Boosters.cs" />
-    <Compile Include="Menus\Database.cs" />
+    <Compile Include="VorpAdminMenuClient.cs" />
+    <Compile Include="Menus\AdministrationMenu.cs" />
+    <Compile Include="Menus\BoostersMenu.cs" />
+    <Compile Include="Menus\DatabaseMenu.cs" />
     <Compile Include="Menus\MainMenu.cs" />
-    <Compile Include="Menus\Notifications.cs" />
-    <Compile Include="Menus\Players\Inventory\Inventory.cs" />
-    <Compile Include="Menus\Players\Players.cs" />
-    <Compile Include="Menus\Players\PlayersDatabase.cs" />
-    <Compile Include="Menus\Teleports.cs" />
+    <Compile Include="Menus\NotificationsMenu.cs" />
+    <Compile Include="Menus\Players\PlayersMenu.cs" />
+    <Compile Include="Menus\Players\PlayersDatabaseMenu.cs" />
+    <Compile Include="Menus\TeleportsMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Functions\AdministrationFunctions.cs" />
+    <Compile Include="Functions\BoosterFunctions.cs" />
+    <Compile Include="Functions\TeleportsFunctions.cs" />
+    <Compile Include="Functions\DatabaseFunctions.cs" />
+    <Compile Include="Functions\NotificationFunctions.cs" />
+    <Compile Include="Lists\WeaponsList.cs" />
+    <Compile Include="Lists\AmmoList.cs" />
+    <Compile Include="Functions\UtilsFunctions.cs" />
+    <Compile Include="Menus\Players\InventoryMenu.cs" />
+    <Compile Include="Functions\PlayerFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Lists\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

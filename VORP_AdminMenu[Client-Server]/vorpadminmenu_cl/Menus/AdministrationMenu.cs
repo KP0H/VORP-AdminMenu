@@ -1,10 +1,9 @@
 ﻿using MenuAPI;
-using vorpadminmenu_cl.Functions.Administration;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
-    class Administration
+    class AdministrationMenu
     {
         private static Menu administrationMenu = new Menu(GetConfig.Langs["MenuAdministrationTitle"], GetConfig.Langs["MenuAdministrationDesc"]);
         private static MenuCheckboxItem pfollow = new MenuCheckboxItem(GetConfig.Langs["PlayersBlipsTitle"], GetConfig.Langs["PlayersBlipsDesc"], false)
@@ -19,7 +18,7 @@ namespace vorpadminmenu_cl.Menus
             MenuController.AddMenu(administrationMenu);
 
             //Administration
-            MenuController.AddSubmenu(administrationMenu, Players.Players.GetMenu());
+            MenuController.AddSubmenu(administrationMenu, Players.PlayersMenu.GetMenu());
 
             MenuItem subMenuPlayersBtn = new MenuItem(GetConfig.Langs["PlayersListTitle"], " ")
             {
@@ -27,7 +26,7 @@ namespace vorpadminmenu_cl.Menus
             };
 
             administrationMenu.AddMenuItem(subMenuPlayersBtn);
-            MenuController.BindMenuItem(administrationMenu, Players.Players.GetMenu(), subMenuPlayersBtn);
+            MenuController.BindMenuItem(administrationMenu, Players.PlayersMenu.GetMenu(), subMenuPlayersBtn);
 
             administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["KickPlayerTitle"], GetConfig.Langs["KickPlayerDesc"])
             {
@@ -58,25 +57,19 @@ namespace vorpadminmenu_cl.Menus
                 Enabled = true,
             });
             administrationMenu.AddMenuItem(pfollow);
-            if (GetUserInfo.userGroup.Contains("admin"))
+            
+            administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["SlapTitle"], GetConfig.Langs["SlapDesc"])
             {
-                administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["SlapTitle"], GetConfig.Langs["SlapDesc"])
-                {
-                    Enabled = true,
-                });
-
-                administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["LightningTitle"], GetConfig.Langs["LightningDesc"])
-                {
-                    Enabled = true,
-                });
-                administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["FireTitle"], GetConfig.Langs["FireDesc"])
-                {
-                    Enabled = true,
-                });
-            }
-
-
-
+                Enabled = true,
+            });
+            administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["LightningTitle"], GetConfig.Langs["LightningDesc"])
+            {
+                Enabled = true,
+            });
+            administrationMenu.AddMenuItem(new MenuItem(GetConfig.Langs["FireTitle"], GetConfig.Langs["FireDesc"])
+            {
+                Enabled = true,
+            });
 
             administrationMenu.OnItemSelect += async (_menu, _item, _index) =>
             {

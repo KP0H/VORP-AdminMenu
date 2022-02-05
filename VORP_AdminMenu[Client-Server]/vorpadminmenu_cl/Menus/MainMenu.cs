@@ -23,7 +23,7 @@ namespace vorpadminmenu_cl.Menus
             MenuController.MenuToggleKey = (Control)KeyInt;
 
             //Administration
-            MenuController.AddSubmenu(mainMenu, Administration.GetMenu());
+            MenuController.AddSubmenu(mainMenu, AdministrationMenu.GetMenu());
 
             MenuItem subMenuAdministrationBtn = new MenuItem(GetConfig.Langs["MenuAdministrationTitle"], " ")
             {
@@ -31,24 +31,21 @@ namespace vorpadminmenu_cl.Menus
             };
 
             mainMenu.AddMenuItem(subMenuAdministrationBtn);
-            MenuController.BindMenuItem(mainMenu, Administration.GetMenu(), subMenuAdministrationBtn);
+            MenuController.BindMenuItem(mainMenu, AdministrationMenu.GetMenu(), subMenuAdministrationBtn);
 
             //Boosters
-            if (GetUserInfo.userGroup.Contains("admin"))
+            MenuController.AddSubmenu(mainMenu, BoostersMenu.GetMenu());
+
+            MenuItem subMenuBoostersBtn = new MenuItem(GetConfig.Langs["MenuBoostersTitle"], " ")
             {
-                MenuController.AddSubmenu(mainMenu, Boosters.GetMenu());
+                RightIcon = MenuItem.Icon.ARROW_RIGHT
+            };
 
-                MenuItem subMenuBoostersBtn = new MenuItem(GetConfig.Langs["MenuBoostersTitle"], " ")
-                {
-                    RightIcon = MenuItem.Icon.ARROW_RIGHT
-                };
-
-                mainMenu.AddMenuItem(subMenuBoostersBtn);
-                MenuController.BindMenuItem(mainMenu, Boosters.GetMenu(), subMenuBoostersBtn);
-            }
+            mainMenu.AddMenuItem(subMenuBoostersBtn);
+            MenuController.BindMenuItem(mainMenu, BoostersMenu.GetMenu(), subMenuBoostersBtn);
 
             //Notifications
-            MenuController.AddSubmenu(mainMenu, Notifications.GetMenu());
+            MenuController.AddSubmenu(mainMenu, NotificationsMenu.GetMenu());
 
             MenuItem subMenuNotificationsBtn = new MenuItem(GetConfig.Langs["MenuNotificationsTitle"], " ")
             {
@@ -56,10 +53,10 @@ namespace vorpadminmenu_cl.Menus
             };
 
             mainMenu.AddMenuItem(subMenuNotificationsBtn);
-            MenuController.BindMenuItem(mainMenu, Notifications.GetMenu(), subMenuNotificationsBtn);
+            MenuController.BindMenuItem(mainMenu, NotificationsMenu.GetMenu(), subMenuNotificationsBtn);
 
             //Teleports
-            MenuController.AddSubmenu(mainMenu, Teleports.GetMenu());
+            MenuController.AddSubmenu(mainMenu, TeleportsMenu.GetMenu());
 
             MenuItem subMenuTeleportsBtn = new MenuItem(GetConfig.Langs["MenuTeleportsTitle"], " ")
             {
@@ -67,22 +64,18 @@ namespace vorpadminmenu_cl.Menus
             };
 
             mainMenu.AddMenuItem(subMenuTeleportsBtn);
-            MenuController.BindMenuItem(mainMenu, Teleports.GetMenu(), subMenuTeleportsBtn);
+            MenuController.BindMenuItem(mainMenu, TeleportsMenu.GetMenu(), subMenuTeleportsBtn);
 
             //Database
-            if (GetUserInfo.userGroup.Contains("admin"))
+            MenuController.AddSubmenu(mainMenu, DatabaseMenu.GetMenu());
+
+            MenuItem subMenuDatabaseBtn = new MenuItem(GetConfig.Langs["MenuDatabaseTitle"], " ")
             {
-                MenuController.AddSubmenu(mainMenu, Database.GetMenu());
+                RightIcon = MenuItem.Icon.ARROW_RIGHT
+            };
 
-                MenuItem subMenuDatabaseBtn = new MenuItem(GetConfig.Langs["MenuDatabaseTitle"], " ")
-                {
-                    RightIcon = MenuItem.Icon.ARROW_RIGHT
-                };
-
-                mainMenu.AddMenuItem(subMenuDatabaseBtn);
-                MenuController.BindMenuItem(mainMenu, Database.GetMenu(), subMenuDatabaseBtn);
-            }
-
+            mainMenu.AddMenuItem(subMenuDatabaseBtn);
+            MenuController.BindMenuItem(mainMenu, DatabaseMenu.GetMenu(), subMenuDatabaseBtn);
 
         }
         public static Menu GetMenu()

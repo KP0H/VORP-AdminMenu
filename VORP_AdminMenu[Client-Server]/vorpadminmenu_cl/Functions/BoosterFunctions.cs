@@ -1,11 +1,11 @@
-﻿using CitizenFX.Core;
-using CitizenFX.Core.Native;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using vorpadminmenu_cl.Functions.Utils;
 
-namespace vorpadminmenu_cl.Functions.Boosters
+namespace vorpadminmenu_cl.Functions
 {
     class BoosterFunctions : BaseScript
     {
@@ -118,15 +118,15 @@ namespace vorpadminmenu_cl.Functions.Boosters
         public static void GodMode(List<object> args)
         {
 
-            if (!Menus.Boosters.Getgmode())
+            if (!Menus.BoostersMenu.Getgmode())
             {
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), true);
-                Menus.Boosters.Setgmode(true);
+                Menus.BoostersMenu.Setgmode(true);
             }
             else
             {
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), false);
-                Menus.Boosters.Setgmode(false);
+                Menus.BoostersMenu.Setgmode(false);
             }
         }
 
@@ -145,33 +145,40 @@ namespace vorpadminmenu_cl.Functions.Boosters
             }
         }
 
+        [Tick]
+        private async Task Controls()
+        {
+            if (API.IsControlPressed(0, 0x8AAA0AD4) && API.IsControlJustPressed(0, 0x760A9C6F))
+            {
+                Noclip2(new List<object>());
+            }
+        }
+
         public static void Noclip(List<object> args)
         {
-
-
             int playerPed = API.PlayerPedId();
             heading = API.GetEntityHeading(playerPed);
 
-            if (!Menus.Boosters.Getnclip())
+            if (!Menus.BoostersMenu.Getnclip())
             {
                 API.FreezeEntityPosition(playerPed, true);
                 API.SetEntityVisible(playerPed, false);
-                Menus.Boosters.Setnclip(true);
+                Menus.BoostersMenu.Setnclip(true);
             }
             else
             {
                 API.SetEntityVisible(playerPed, true);
                 API.FreezeEntityPosition(playerPed, false);
-                Menus.Boosters.Setnclip(false);
+                Menus.BoostersMenu.Setnclip(false);
             }
         }
 
         [Tick]
         private async Task Noc()
         {
-            if (GetUserInfo.loaded)
+            if (VorpAdminMenuClient.loaded)
             {
-                if (Menus.Boosters.Getnclip())
+                if (Menus.BoostersMenu.Getnclip())
                 {
                     int playerPed = API.PlayerPedId();
                     API.SetEntityHeading(playerPed, heading);
@@ -247,29 +254,29 @@ namespace vorpadminmenu_cl.Functions.Boosters
             int playerPed = API.PlayerPedId();
             heading = API.GetEntityHeading(playerPed);
 
-            if (!Menus.Boosters.Getmclip())
+            if (!Menus.BoostersMenu.Getmclip())
             {
                 API.FreezeEntityPosition(playerPed, true);
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), true);
                 API.SetEntityVisible(playerPed, false);
-                Menus.Boosters.Setmclip(true);
+                Menus.BoostersMenu.Setmclip(true);
             }
             else
             {
                 API.SetEntityVisible(playerPed, true);
                 API.FreezeEntityPosition(playerPed, false);
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, API.PlayerId(), false);
-                Menus.Boosters.Setmclip(false);
+                Menus.BoostersMenu.Setmclip(false);
             }
         }
 
         [Tick]
         private async Task Noc2()
         {
-            if (GetUserInfo.loaded)
+            if (VorpAdminMenuClient.loaded)
             {
                 int playerPed = API.PlayerPedId();
-                if (Menus.Boosters.Getmclip())
+                if (Menus.BoostersMenu.Getmclip())
                 {
                     API.SetEntityHeading(playerPed, heading);
                     if (API.IsControlPressed(0, 0x8FD015D8)) //W
@@ -345,7 +352,7 @@ namespace vorpadminmenu_cl.Functions.Boosters
         [Tick]
         public async Task OnLight()
         {
-            if (GetUserInfo.loaded)
+            if (VorpAdminMenuClient.loaded)
             {
                 int entity = 0;
                 bool hit = false;
@@ -355,12 +362,12 @@ namespace vorpadminmenu_cl.Functions.Boosters
                 Vector3 sourceCoords = UtilsFunctions.GetCoordsFromCam(1000.0F);
                 int rayHandle = API.StartShapeTestRay(camCoords.X, camCoords.Y, camCoords.Z, sourceCoords.X, sourceCoords.Y, sourceCoords.Z, -1, API.PlayerPedId(), 0);
                 API.GetShapeTestResult(rayHandle, ref hit, ref endCoord, ref surfaceNormal, ref entity);
-                if (API.IsControlJustPressed(0, 0xCEE12B50) && Menus.Boosters.Gettmode())
+                if (API.IsControlJustPressed(0, 0xCEE12B50) && Menus.BoostersMenu.Gettmode())
                 {
                     TriggerServerEvent("vorp:thor", endCoord);
                 }
 
-                if (Menus.Boosters.Gettmode())
+                if (Menus.BoostersMenu.Gettmode())
                 {
                     Function.Call((Hash)0x2A32FAA57B937173, -1795314153, endCoord.X, endCoord.Y, endCoord.Z, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 50.0F, 255, 255, 0, 155, false, false, 2, false, 0, 0, false);
                 }
@@ -375,13 +382,13 @@ namespace vorpadminmenu_cl.Functions.Boosters
 
         public static void Thor(List<object> args)
         {
-            if (Menus.Boosters.Gettmode())
+            if (Menus.BoostersMenu.Gettmode())
             {
-                Menus.Boosters.Settmode(false);
+                Menus.BoostersMenu.Settmode(false);
             }
             else
             {
-                Menus.Boosters.Settmode(true);
+                Menus.BoostersMenu.Settmode(true);
             }
         }
         public static async Task Horse(List<object> args)

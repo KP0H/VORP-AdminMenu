@@ -1,10 +1,9 @@
 ﻿using MenuAPI;
-using vorpadminmenu_cl.Functions.Teleports;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
-    class Teleports
+    class TeleportsMenu
     {
         private static Menu teleportsMenu = new Menu(GetConfig.Langs["MenuTeleportsTitle"], GetConfig.Langs["MenuTeleportsDesc"]);
         private static bool setupDone = false;
@@ -12,6 +11,7 @@ namespace vorpadminmenu_cl.Menus
         {
             Style = MenuCheckboxItem.CheckboxStyle.Tick
         };
+
         private static void SetupMenu()
         {
             if (setupDone) return;

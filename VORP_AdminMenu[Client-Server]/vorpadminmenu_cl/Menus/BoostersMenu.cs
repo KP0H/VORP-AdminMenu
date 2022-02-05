@@ -1,10 +1,9 @@
 ﻿using MenuAPI;
-using vorpadminmenu_cl.Functions.Boosters;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
-    class Boosters
+    class BoostersMenu
     {
         private static Menu boostersMenu = new Menu(GetConfig.Langs["MenuBoostersTitle"], GetConfig.Langs["MenuBoostersDesc"]);
         private static MenuCheckboxItem gmode = new MenuCheckboxItem(GetConfig.Langs["GodModeTitle"], GetConfig.Langs["GodModeDesc"], false)
@@ -24,6 +23,7 @@ namespace vorpadminmenu_cl.Menus
             Style = MenuCheckboxItem.CheckboxStyle.Tick
         };
         private static bool setupDone = false;
+
         private static void SetupMenu()
         {
             if (setupDone) return;
@@ -93,20 +93,21 @@ namespace vorpadminmenu_cl.Menus
             };
 
             boostersMenu.OnCheckboxChange += (_menu, _item, _index, _checked) =>
-        {
-            if (_index == 3)
             {
-                BoosterFunctions.SetClip(_checked);
-                if (_checked) { mclip.Checked = false; };
-            }
-            else if (_index == 4)
-            {
-                BoosterFunctions.SetClip(_checked);
-                if (_checked) { nclip.Checked = false; };
-            }
-        };
+                if (_index == 3)
+                {
+                    BoosterFunctions.SetClip(_checked);
+                    if (_checked) { mclip.Checked = false; };
+                }
+                else if (_index == 4)
+                {
+                    BoosterFunctions.SetClip(_checked);
+                    if (_checked) { nclip.Checked = false; };
+                }
+            };
 
         }
+
         public static Menu GetMenu()
         {
             SetupMenu();

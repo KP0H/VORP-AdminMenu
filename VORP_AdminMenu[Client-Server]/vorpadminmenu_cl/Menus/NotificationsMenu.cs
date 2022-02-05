@@ -1,10 +1,9 @@
 ﻿using MenuAPI;
-using vorpadminmenu_cl.Functions.Notifications;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
-    class Notifications
+    class NotificationsMenu
     {
         private static Menu notificationsMenu = new Menu(GetConfig.Langs["MenuNotificationsTitle"], GetConfig.Langs["MenuNotificationsDesc"]);
         private static bool setupDone = false;

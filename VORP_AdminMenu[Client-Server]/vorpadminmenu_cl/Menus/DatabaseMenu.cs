@@ -1,10 +1,9 @@
 ﻿using MenuAPI;
-using vorpadminmenu_cl.Functions.Database;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus
 {
-    class Database
+    class DatabaseMenu
     {
         private static Menu databaseMenu = new Menu(GetConfig.Langs["MenuDatabaseTitle"], GetConfig.Langs["MenuDatabaseDesc"]);
         private static bool setupDone = false;
@@ -15,7 +14,7 @@ namespace vorpadminmenu_cl.Menus
             setupDone = true;
             MenuController.AddMenu(databaseMenu);
 
-            MenuController.AddSubmenu(databaseMenu, Players.PlayersDatabase.GetMenu());
+            MenuController.AddSubmenu(databaseMenu, Players.PlayersDatabaseMenu.GetMenu());
 
             MenuItem subMenuPlayersDatabaseBtn = new MenuItem(GetConfig.Langs["PlayersListTitle"], " ")
             {
@@ -23,7 +22,7 @@ namespace vorpadminmenu_cl.Menus
             };
 
             databaseMenu.AddMenuItem(subMenuPlayersDatabaseBtn);
-            MenuController.BindMenuItem(databaseMenu, Players.PlayersDatabase.GetMenu(), subMenuPlayersDatabaseBtn);
+            MenuController.BindMenuItem(databaseMenu, Players.PlayersDatabaseMenu.GetMenu(), subMenuPlayersDatabaseBtn);
 
             databaseMenu.AddMenuItem(new MenuItem(GetConfig.Langs["AddMoneyTitle"], GetConfig.Langs["AddMoneyDesc"])
             {

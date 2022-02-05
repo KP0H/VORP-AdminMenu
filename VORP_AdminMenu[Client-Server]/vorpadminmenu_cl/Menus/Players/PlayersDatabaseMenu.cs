@@ -1,15 +1,13 @@
-﻿using CitizenFX.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CitizenFX.Core.Native;
 using MenuAPI;
-using System.Collections.Generic;
-using System.Linq;
-using vorpadminmenu_cl.Functions.Database;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus.Players
 {
 
-    class PlayersDatabase
+    class PlayersDatabaseMenu
     {
         private static Menu playersListDatabaseMenu = new Menu(GetConfig.Langs["PlayersListTitle"], GetConfig.Langs["PlayersListDesc"]);
         private static Menu playersOptionsDatabaseMenu = new Menu("", GetConfig.Langs["PlayersListDesc"]);
@@ -76,10 +74,7 @@ namespace vorpadminmenu_cl.Menus.Players
                 Enabled = true,
             });
 
-
-
-
-            MenuController.AddSubmenu(playersOptionsDatabaseMenu, Inventory.Inventory.GetMenu());
+            MenuController.AddSubmenu(playersOptionsDatabaseMenu, Inventory.InventoryMenu.GetMenu());
 
             MenuItem subMenuInventoryBtn = new MenuItem(GetConfig.Langs["InventoryTitle"], " ")
             {
@@ -87,7 +82,7 @@ namespace vorpadminmenu_cl.Menus.Players
             };
 
             playersOptionsDatabaseMenu.AddMenuItem(subMenuInventoryBtn);
-            MenuController.BindMenuItem(playersOptionsDatabaseMenu, Inventory.Inventory.GetMenu(), subMenuInventoryBtn);
+            MenuController.BindMenuItem(playersOptionsDatabaseMenu, Inventory.InventoryMenu.GetMenu(), subMenuInventoryBtn);
 
 
             playersOptionsDatabaseMenu.OnItemSelect += async (_menu, _item, _index) =>

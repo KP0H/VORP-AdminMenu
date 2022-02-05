@@ -1,19 +1,17 @@
-﻿using CitizenFX.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CitizenFX.Core.Native;
 using MenuAPI;
-using System.Collections.Generic;
-using System.Linq;
-using vorpadminmenu_cl.Functions.Administration;
-using vorpadminmenu_cl.Functions.Teleports;
-using vorpadminmenu_cl.Functions.Utils;
+using vorpadminmenu_cl.Functions;
 
 namespace vorpadminmenu_cl.Menus.Players
 {
-    class Players
+    class PlayersMenu
     {
         private static Menu playersListMenu = new Menu(GetConfig.Langs["PlayersListTitle"], GetConfig.Langs["PlayersListDesc"]);
         private static Menu playersOptionsMenu = new Menu("", GetConfig.Langs["PlayersListDesc"]);
-        private static List<int> idPlayers = new List<int>();
+        private static List<KeyValuePair<int, string>> idPlayers = new List<KeyValuePair<int, string>>();
+
         private static int indexPlayer;
         private static bool setupDone = false;
         private static void SetupMenu()
@@ -26,28 +24,27 @@ namespace vorpadminmenu_cl.Menus.Players
             {
                 playersListMenu.ClearMenuItems();
                 idPlayers.Clear();
-                foreach (var i in API.GetActivePlayers())
-                {
-                    string name = API.GetPlayerName(i).ToString();
-                    string id = API.GetPlayerServerId(i).ToString();
-                    idPlayers.Add(i);
-                    MenuController.AddSubmenu(playersListMenu, playersOptionsMenu);
 
-                    MenuItem playerNameButton = new MenuItem(name, $"{name},{id}")
+                var playersDictionary = PlayerFunctions.GetPlayers().Result;
+
+                foreach (KeyValuePair<int, string> player in playersDictionary)
+                {
+                    idPlayers.Add(player);
+
+                    MenuController.AddSubmenu(playersListMenu, playersOptionsMenu);
+                    MenuItem playerNameButton = new MenuItem(player.Value, $"{player.Value},{player.Key}")
                     {
                         RightIcon = MenuItem.Icon.ARROW_RIGHT
                     };
                     playersListMenu.AddMenuItem(playerNameButton);
                     MenuController.BindMenuItem(playersListMenu, playersOptionsMenu, playerNameButton);
-
                 }
             };
 
             playersListMenu.OnItemSelect += (_menu, _item, _index) =>
             {
                 indexPlayer = _index;
-                playersOptionsMenu.MenuTitle = API.GetPlayerName(idPlayers.ElementAt(indexPlayer)) + "," + API.GetPlayerServerId((idPlayers.ElementAt(indexPlayer)));
-
+                playersOptionsMenu.MenuTitle = idPlayers.ElementAt(indexPlayer).Value + "," + idPlayers.ElementAt(indexPlayer).Key;
             };
 
             playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["SpectateTitle"], GetConfig.Langs["SpectateDesc"])
@@ -92,75 +89,70 @@ namespace vorpadminmenu_cl.Menus.Players
             {
                 Enabled = true,
             });
-            if (GetUserInfo.userGroup.Contains("admin"))
+
+            playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["SlapTitle"], GetConfig.Langs["SlapDesc"])
             {
-                playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["SlapTitle"], GetConfig.Langs["SlapDesc"])
-                {
-                    Enabled = true,
-                });
-                playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["LightningTitle"], GetConfig.Langs["LightningDesc"])
-                {
-                    Enabled = true,
-                });
-                playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["FireTitle"], GetConfig.Langs["FireDesc"])
-                {
-                    Enabled = true,
-                });
-            }
-
-
-
+                Enabled = true,
+            });
+            playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["LightningTitle"], GetConfig.Langs["LightningDesc"])
+            {
+                Enabled = true,
+            });
+            playersOptionsMenu.AddMenuItem(new MenuItem(GetConfig.Langs["FireTitle"], GetConfig.Langs["FireDesc"])
+            {
+                Enabled = true,
+            });
 
             playersOptionsMenu.OnItemSelect += async (_menu, _item, _index) =>
             {
-                if (_index == 0)
+                if (_index == 0)//Spectate
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.Spectate(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 1)
+                else if (_index == 1)//Spectate off
                 {
                     AdministrationFunctions.SpectateOff(MainMenu.args);
                 }
-                else if (_index == 2)
+                else if (_index == 2)//Revive
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.Revive(MainMenu.args);
                 }
-                else if (_index == 3)
+                else if (_index == 3)//Heal
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.Heal(MainMenu.args);
                 }
-                else if (_index == 4)
+                else if (_index == 4)//TpToPlayer
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     TeleportsFunctions.TpToPlayer(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 5)
+                else if (_index == 5)//TpBring
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     TeleportsFunctions.TpBring(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 6)
+                else if (_index == 6)//Stop Player
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.StopPlayer(MainMenu.args);
                     MainMenu.args.Clear();
                 }
 
-                else if (_index == 7)
+                else if (_index == 7)//Kick
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.Kick(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 8)
+                else if (_index == 8)//Ban
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     dynamic time = await UtilsFunctions.GetInput(GetConfig.Langs["BanPlayerTitle"], GetConfig.Langs["BanPlayerTime"]);
                     MainMenu.args.Add(time);
                     dynamic reason = await UtilsFunctions.GetInput(GetConfig.Langs["BanPlayerTitle"], GetConfig.Langs["BanPlayerReason"]);
@@ -168,21 +160,21 @@ namespace vorpadminmenu_cl.Menus.Players
                     AdministrationFunctions.Ban(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 9)
+                else if (_index == 9)//Slap
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.Slap(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 10)
+                else if (_index == 10)//ThorTold
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.ThorToId(MainMenu.args);
                     MainMenu.args.Clear();
                 }
-                else if (_index == 11)
+                else if (_index == 11)//FireTiId
                 {
-                    MainMenu.args.Add(API.GetPlayerServerId(idPlayers.ElementAt(indexPlayer)));
+                    MainMenu.args.Add(idPlayers.ElementAt(indexPlayer).Key);
                     AdministrationFunctions.FireToId(MainMenu.args);
                     MainMenu.args.Clear();
                 }
